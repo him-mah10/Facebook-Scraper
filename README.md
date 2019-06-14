@@ -32,3 +32,5 @@ The output of this script is all the text of posts on a public facebook page and
 
 #### Warning
 Scraping data from facebook without permission from facebook or without using it's graph api is __illegal__. Kindly refer to https://www.facebook.com/robots.txt for more details.
+
+#### Cheers!!!
