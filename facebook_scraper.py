@@ -27,9 +27,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 driver = None
 
-page_name = "BITS Hyderabad confessions"
-url = "https://www.facebook.com/bitshydconfess/"
+#Enter your page name and url here
+page_name = ""
+url = ""
 
+#Change the value of total_scrolls depending on how futher you want to go. It's value can be any non-negative integer.
 total_scrolls = 10000
 current_scrolls = 0
 scroll_time = 5
@@ -37,7 +39,6 @@ old_height = 0
 done_posts_click=0
 done_comments_click=0
 
-# conn = engine.connect()
 
 def check_height():
     new_height = driver.execute_script("return document.body.scrollHeight")
@@ -116,7 +117,6 @@ def scrape():
 	txt=driver.find_elements_by_xpath("//div[contains(@class,'_5pbx userContent')]")
 	try:
 		for x in txt:
-			# print (x.text, x.id)
 			print ("post data - ", x.text)
 			print ()
 
@@ -124,19 +124,14 @@ def scrape():
 			post["page_name"] =  page_name
 			post["page_url"] = url
 			post["post"] = x.text
-			# print(post)
-			# file.write (str(post))
-			# file.write ("\n")
 			InsertedResultObj = posts.insert_one(post)
 	except:
 		pass
 
 	txt=driver.find_elements_by_xpath("//div[@class='_72vr']")
-	# print (txt)
 	try:
 		for x in txt:
 			a = x.find_elements_by_xpath (".//a[@class='_6qw4']")
-			# print(a)
 			print ("who made the comment?  - ", a[0].get_attribute("href"))
 			print ("what's in the comment? - ", x.text)
 			print ()
@@ -146,15 +141,14 @@ def scrape():
 			comment["page_url"] = url
 			comment["commenter_id"] = a[0].get_attribute("href")
 			comment["comment"] = x.text
-			# file.write (comment)
-			# file.write ("\n")
 			InsertedResultObj = comments.insert_one(comment)
 	except:
 		pass
 	
 def main():
-	email = "random.capital.inc@gmail.com"
-	password = "qazrandomplm"
+	#Enter your facebook's email id and password here 
+	email = ""
+	password = ""
 	login(email,password)
 	scrape()
 	driver.close()
